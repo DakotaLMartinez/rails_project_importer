@@ -9,13 +9,14 @@
   <strong>Name:</strong>
   <%= @batch.name %>
 </p>
+<%= render template: "batch_progress_reports/index" %>
 <div>
   <span class="fl w-25">Full Name</span>
   <span class="fl w-25">Completed Lesson Count</span>
   <span class="fl w-25">Total Lessons Count</span>
   <span class="fl w-25">Email</span>
 </div>
-<% @progress.each do |p| %> 
+<% @progress && @progress.each do |p| %> 
   <div>
     <span class="fl w-25"><%= p.full_name %></span>
     <span class="fl w-25"><%= p.completed_lessons_count %></span>

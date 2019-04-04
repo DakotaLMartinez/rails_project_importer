@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_02_233521) do
+ActiveRecord::Schema.define(version: 2019_04_04_042305) do
+
+  create_table "batch_progress_reports", force: :cascade do |t|
+    t.integer "batch_id"
+    t.datetime "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["batch_id"], name: "index_batch_progress_reports_on_batch_id"
+  end
 
   create_table "batches", force: :cascade do |t|
     t.integer "batch_id"

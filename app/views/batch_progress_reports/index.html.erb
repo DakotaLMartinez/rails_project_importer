@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Batch Progress Reports</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Batch</th>
+      <th>Date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @batch_progress_reports.each do |batch_progress_report| %>
+      <tr>
+        <td><%= batch_progress_report.batch.try(:name) %></td>
+        <td><%= batch_progress_report.date.strftime("%m/%d/%Y") %></td>
+        <td><%= link_to 'Show', batch_progress_report %></td>
+        <td><%= link_to 'Edit', edit_batch_progress_report_path(batch_progress_report) %></td>
+        <td><%= link_to 'Destroy', batch_progress_report, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Batch Progress Report', new_batch_progress_report_path(@batch) %>

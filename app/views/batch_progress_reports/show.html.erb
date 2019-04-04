@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Batch:</strong>
+  <%= @batch_progress_report.batch.try(:name) %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @batch_progress_report.date.strftime("%m/%d/%Y") %>
+</p>
+
+<%= link_to 'Edit', edit_batch_progress_report_path(@batch_progress_report) %> |
+<%= link_to 'Back', batch_progress_reports_path %>
