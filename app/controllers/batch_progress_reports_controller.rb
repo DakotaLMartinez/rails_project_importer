@@ -26,11 +26,12 @@ class BatchProgressReportsController < ApplicationController
   # POST /batch_progress_reports
   # POST /batch_progress_reports.json
   def create
-    @batch_progress_report = BatchProgressReport.new(batch_progress_report_params)
+    @batch_progress_report = @batch.batch_progress_reports.build(batch_progress_report_params)
 
     respond_to do |format|
       if @batch_progress_report.save
-        format.html { redirect_to @batch_progress_report, notice: 'Batch progress report was successfully created.' }
+        @batch_progress_report.generate_report
+        format.html { redirect_to batch_progress_report_path(@batch, @batch_progress_report), notice: 'Batch progress report was successfully created.' }
         format.json { render :show, status: :created, location: @batch_progress_report }
       else
         format.html { render :new }

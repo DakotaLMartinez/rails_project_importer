@@ -15,10 +15,10 @@
     <% @batch_progress_reports.each do |batch_progress_report| %>
       <tr>
         <td><%= batch_progress_report.batch.try(:name) %></td>
-        <td><%= batch_progress_report.date.strftime("%m/%d/%Y") %></td>
-        <td><%= link_to 'Show', batch_progress_report %></td>
-        <td><%= link_to 'Edit', edit_batch_progress_report_path(batch_progress_report) %></td>
-        <td><%= link_to 'Destroy', batch_progress_report, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= batch_progress_report.created_at.strftime("%m/%d/%Y") %></td>
+        <td><%= link_to 'Show', batch_progress_report_path(@batch, batch_progress_report) %></td>
+        <td><%= link_to 'Edit', edit_batch_progress_report_path(@batch, batch_progress_report) %></td>
+        <td><%= link_to 'Destroy', batch_progress_report_path(@batch, batch_progress_report), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

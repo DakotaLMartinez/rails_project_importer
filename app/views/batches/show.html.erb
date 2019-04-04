@@ -9,21 +9,11 @@
   <strong>Name:</strong>
   <%= @batch.name %>
 </p>
-<%= render template: "batch_progress_reports/index" %>
-<div>
-  <span class="fl w-25">Full Name</span>
-  <span class="fl w-25">Completed Lesson Count</span>
-  <span class="fl w-25">Total Lessons Count</span>
-  <span class="fl w-25">Email</span>
-</div>
-<% @progress && @progress.each do |p| %> 
-  <div>
-    <span class="fl w-25"><%= p.full_name %></span>
-    <span class="fl w-25"><%= p.completed_lessons_count %></span>
-    <span class="fl w-25"><%= p.total_lessons_count %></span>
-    <span class="fl w-25"><%= p.email %></span>
-  </div>
+<%= render partial: "batch_progress_reports/form", locals: {batch: @batch, batch_progress_report: @batch.batch_progress_reports.build }%>
+<% if @batch_progress_report %>
+  <%= render template: "batch_progress_reports/show" %>
 <% end %>
 
 <%= link_to 'Edit', edit_batch_path(@batch) %> |
-<%= link_to 'Back', batches_path %>
+<%= link_to 'Back', batches_path %> | 
+<%= link_to 'Past Reports', batch_progress_reports_path(@batch) %>

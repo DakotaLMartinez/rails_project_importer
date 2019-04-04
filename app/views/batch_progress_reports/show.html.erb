@@ -7,8 +7,22 @@
 
 <p>
   <strong>Date:</strong>
-  <%= @batch_progress_report.date.strftime("%m/%d/%Y") %>
+  <%= @batch_progress_report.created_at.strftime("%m/%d/%Y") %>
 </p>
 
-<%= link_to 'Edit', edit_batch_progress_report_path(@batch_progress_report) %> |
-<%= link_to 'Back', batch_progress_reports_path %>
+<div>
+  <span class="fl w-25">Full Name</span>
+  <span class="fl w-25">Completed Lesson Count</span>
+  <span class="fl w-25">Total Lessons Count</span>
+  <span class="fl w-25">Email</span>
+</div>
+<% @batch_progress_report.batch_progress_report_rows.each do |row| %> 
+  <div>
+    <span class="fl w-25"><%= row.full_name %></span>
+    <span class="fl w-25"><%= row.completed_lessons_count %></span>
+    <span class="fl w-25"><%= row.total_lessons_count %></span>
+    <span class="fl w-25"><%= row.email %></span>
+  </div>
+<% end %>
+
+

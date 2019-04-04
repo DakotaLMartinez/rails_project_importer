@@ -1,4 +1,4 @@
-<%= form_with(model: batch_progress_report, local: true) do |form| %>
+<%= form_with(model: batch_progress_report, url: batch_progress_reports_path(batch), local: true) do |form| %>
   <% if batch_progress_report.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(batch_progress_report.errors.count, "error") %> prohibited this batch_progress_report from being saved:</h2>
@@ -14,11 +14,6 @@
   <div class="dn">
     <%= form.label :batch_id %>
     <%= form.text_field :batch_id, value: params[:batch_id] %>
-  </div>
-
-  <div class="field">
-    <%= form.label :date %>
-    <%= form.datetime_select :date %>
   </div>
 
   <div class="actions">

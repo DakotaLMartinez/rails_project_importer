@@ -1,0 +1,2 @@
+class BatchProgressReportRowsController < ApplicationController
+end

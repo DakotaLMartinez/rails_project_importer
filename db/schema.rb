@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_04_042305) do
+ActiveRecord::Schema.define(version: 2019_04_04_044809) do
+
+  create_table "batch_progress_report_rows", force: :cascade do |t|
+    t.integer "batch_progress_report_id"
+    t.string "full_name"
+    t.integer "completed_lessons_count"
+    t.integer "total_lessons_count"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["batch_progress_report_id"], name: "index_batch_progress_report_rows_on_batch_progress_report_id"
+  end
 
   create_table "batch_progress_reports", force: :cascade do |t|
     t.integer "batch_id"

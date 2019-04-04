@@ -20,12 +20,13 @@ class StudentProgressImporter
   end
 
   def fetch 
+    # student_progress = Struct.new(:full_name, :completed_lessons_count, :total_lessons_count, :email)
+    # result = data["students"].map do |h| 
+    #   student_progress.new(h["full_name"], h["completed_lessons_count"], h["total_lessons_count"], h["email"])
+    # end
+    # data
     session.visit("#{BASE_URL}/batches/#{batch_id}.json")
     data = JSON.parse(@session.text)
-    student_progress = Struct.new(:full_name, :completed_lessons_count, :total_lessons_count, :email)
-    result = data["students"].map do |h| 
-      student_progress.new(h["full_name"], h["completed_lessons_count"], h["total_lessons_count"], h["email"])
-    end
     
   end
 
