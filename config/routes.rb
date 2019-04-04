@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  devise_for :users
   resources :students
   resources :batch_progress_report_rows
   resources :batches do 

@@ -16,6 +16,7 @@ gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 gem 'tachyons-rails', git: 'https://github.com/DakotaLMartinez/tachyons-rails'
 gem 'typhoeus'
+gem 'devise'
 
 # gem 'mini_racer', platforms: :ruby
 
@@ -27,6 +28,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 
 gem 'capybara_scraper'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
