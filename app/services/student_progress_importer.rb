@@ -1,5 +1,6 @@
 require 'open-uri'
 require 'capybara_scraper'
+require 'typhoeus'
 
 options = {js_errors: false}
 Capybara.register_driver :poltergeist do |app|
@@ -7,7 +8,7 @@ Capybara.register_driver :poltergeist do |app|
 end
 
 class StudentProgressImporter 
-  BASE_URL = 'https://learn.co/api/v1/batches/'
+  BASE_URL = 'https://learn.co/api/v1'
 
   attr_reader :batch_id
   def initialize(batch_id)
@@ -19,11 +20,11 @@ class StudentProgressImporter
   end
 
   def fetch 
-    session.visit("#{BASE_URL}#{batch_id}.json")
+    session.visit("#{BASE_URL}/batches/#{batch_id}.json")
     data = JSON.parse(@session.text)
-    student_progress = Struct.new(:full_name, :completed_lessons_count, :total_lessons_count)
+    student_progress = Struct.new(:full_name, :completed_lessons_count, :total_lessons_count, :email)
     result = data["students"].map do |h| 
-      student_progress.new(h["full_name"], h["completed_lessons_count"], h["total_lessons_count"])
+      student_progress.new(h["full_name"], h["completed_lessons_count"], h["total_lessons_count"], h["email"])
     end
     
   end
