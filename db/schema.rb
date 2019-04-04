@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_04_044809) do
+ActiveRecord::Schema.define(version: 2019_04_04_071400) do
 
   create_table "batch_progress_report_rows", force: :cascade do |t|
     t.integer "batch_progress_report_id"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2019_04_04_044809) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "student_id"
     t.index ["batch_progress_report_id"], name: "index_batch_progress_report_rows_on_batch_progress_report_id"
   end
 
@@ -34,6 +35,13 @@ ActiveRecord::Schema.define(version: 2019_04_04_044809) do
   create_table "batches", force: :cascade do |t|
     t.integer "batch_id"
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.string "full_name"
+    t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

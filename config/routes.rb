@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :students
   resources :batch_progress_report_rows
   resources :batches do 
     resources :batch_progress_reports, as: :progress_reports
