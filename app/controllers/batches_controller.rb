@@ -10,6 +10,7 @@ class BatchesController < ApplicationController
   # GET /batches/1
   # GET /batches/1.json
   def show
+    @progress = StudentProgressImporter.new(@batch.batch_id).fetch
   end
 
   # GET /batches/new

@@ -9,6 +9,18 @@
   <strong>Name:</strong>
   <%= @batch.name %>
 </p>
+<div>
+  <span class="fl w-50">Full Name</span>
+  <span class="fl w-25">Completed Lesson Count</span>
+  <span class="fl w-25">Total Lessons Count</span>
+</div>
+<% @progress.each do |p| %> 
+  <div>
+    <span class="fl w-50"><%= p.full_name %></span>
+    <span class="fl w-25"><%= p.completed_lessons_count %></span>
+    <span class="fl w-25"><%= p.total_lessons_count %></span>
+  </div>
+<% end %>
 
 <%= link_to 'Edit', edit_batch_path(@batch) %> |
 <%= link_to 'Back', batches_path %>
