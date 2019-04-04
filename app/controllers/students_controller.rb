@@ -1,5 +1,10 @@
 class StudentsController < ApplicationController
   before_action :authenticate_user!
+
+  def index
+    @students = current_user.students
+  end
+
   def add 
     @student = Student.find_by(id: params[:id])
     current_user.students << @student unless current_user.student_ids.include?(params[:id])
@@ -8,7 +13,7 @@ class StudentsController < ApplicationController
 
   def remove 
     @student = Student.find_by(id: params[:id])
-    current_user.student.delete(@student) 
+    current_user.students.delete(@student) 
     redirect_to request.referrer
   end
 end

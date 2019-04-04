@@ -1,0 +1,18 @@
+<h1>My Student's Progress</h1>
+<div>
+  <span class="fl w-20">Full Name</span>
+  <span class="fl w-20">Completed Lesson Count</span>
+  <span class="fl w-20">Total Lessons Count</span>
+  <span class="fl w-20">Email</span>
+  <span class="fl w-20">Add/Remove</span>
+</div>
+<% @students.each do |student| %> 
+  <% row = student.last_progress %>
+  <div>
+    <span class="fl w-20"><%= row.full_name %></span>
+    <span class="fl w-20"><%= row.completed_lessons_count %></span>
+    <span class="fl w-20"><%= row.total_lessons_count %></span>
+    <span class="fl w-20"><%= row.email %></span>
+    <span class="fl w-20"><%= row.student && add_button(row.student) %></span>
+  </div>
+<% end %>
