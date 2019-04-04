@@ -11,17 +11,19 @@
 </p>
 
 <div>
-  <span class="fl w-25">Full Name</span>
-  <span class="fl w-25">Completed Lesson Count</span>
-  <span class="fl w-25">Total Lessons Count</span>
-  <span class="fl w-25">Email</span>
+  <span class="fl w-20">Full Name</span>
+  <span class="fl w-20">Completed Lesson Count</span>
+  <span class="fl w-20">Total Lessons Count</span>
+  <span class="fl w-20">Email</span>
+  <span class="fl w-20">Add/Remove</span>
 </div>
 <% @batch_progress_report.batch_progress_report_rows.each do |row| %> 
   <div>
-    <span class="fl w-25"><%= row.full_name %></span>
-    <span class="fl w-25"><%= row.completed_lessons_count %></span>
-    <span class="fl w-25"><%= row.total_lessons_count %></span>
-    <span class="fl w-25"><%= row.email %></span>
+    <span class="fl w-20"><%= row.full_name %></span>
+    <span class="fl w-20"><%= row.completed_lessons_count %></span>
+    <span class="fl w-20"><%= row.total_lessons_count %></span>
+    <span class="fl w-20"><%= row.email %></span>
+    <span class="fl w-20"><%= add_button(row.student) %></span>
   </div>
 <% end %>
 
