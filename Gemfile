@@ -18,6 +18,9 @@ gem 'tachyons-rails', git: 'https://github.com/DakotaLMartinez/tachyons-rails'
 gem 'typhoeus'
 gem 'devise'
 
+gem 'delayed_job_active_record'
+gem 'daemons'
+
 # gem 'mini_racer', platforms: :ruby
 
 # Use CoffeeScript for .coffee assets and views

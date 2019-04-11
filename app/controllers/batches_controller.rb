@@ -10,8 +10,8 @@ class BatchesController < ApplicationController
   # GET /batches/1
   # GET /batches/1.json
   def show
-    @batch_progress_report = @batch.batch_progress_reports.last
-    # @progress = StudentProgressImporter.new(@batch.batch_id).fetch
+    @batch_progress_report = @batch.last_report_with_content
+    @batch.refresh_report
   end
 
   # GET /batches/new
