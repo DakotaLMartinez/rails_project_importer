@@ -11,6 +11,6 @@ class Batch < ApplicationRecord
 
   def last_report_with_content 
     my_reports = batch_progress_report_ids
-    last_report_with_rows = BatchProgressReportRow.where(batch_progress_report_id: my_reports).last.try(:batch_progress_report)
+    last_report_with_rows = BatchProgressReportRow.where(batch_progress_report_id: my_reports).order(:created_at).last.try(:batch_progress_report)
   end
 end

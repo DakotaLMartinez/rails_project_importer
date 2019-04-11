@@ -9,6 +9,11 @@
   <strong>Name:</strong>
   <%= @batch.name %>
 </p>
+
+<p>
+  <strong>Iteration:</strong>
+  <%= @batch.iteration %>
+</p>
 <%= render partial: "batch_progress_reports/form", locals: {batch: @batch, batch_progress_report: @batch.batch_progress_reports.build }%>
 <% if @batch_progress_report %>
   <%= render template: "batch_progress_reports/show" %>

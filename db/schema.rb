@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_04_190125) do
+ActiveRecord::Schema.define(version: 2019_04_11_200744) do
 
   create_table "batch_progress_report_rows", force: :cascade do |t|
     t.integer "batch_progress_report_id"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2019_04_04_190125) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "iteration"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
