@@ -15,6 +15,12 @@
   <%= @batch.iteration %>
 </p>
 <%= render partial: "batch_progress_reports/form", locals: {batch: @batch, batch_progress_report: @batch.batch_progress_reports.build }%>
+<%= link_to "All Projects", batch_projects_path(@batch) %> |
+<%= link_to "CLI", batch_projects_path(@batch, {type: "CLI"}) %> |
+<%= link_to "Sinatra", batch_projects_path(@batch, {type: "Sinatra"}) %> |
+<%= link_to "Rails", batch_projects_path(@batch, {type: "Rails"}) %> |
+<%= link_to "Rails/JS", batch_projects_path(@batch, {type: "Rails/JS"}) %> |
+<%= link_to "React", batch_projects_path(@batch, {type: "React"}) %> |
 <% if @batch_progress_report %>
   <%= render template: "batch_progress_reports/show" %>
 <% end %>

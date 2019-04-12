@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Projects</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Student</th>
+      <th>Project Type</th>
+      <th>Github Repo</th>
+      <th>Blog Post</th>
+      <th>Video Url</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% projects.each do |project| %>
+      <tr>
+        <td><%= link_to project.student_name, student_path(project.student) %></td>
+        <td><%= project.short_type %></td>
+        <td><%= link_to "#{project.github_url.split('/').last}", project.github_url, target: 'blank' %></td>
+        <td><%= link_to "Blog", project.blog_url, target: 'blank' %></td>
+        <td><%= link_to 'Video', project.video_url, target: 'blank' %></td>
+        <td><%= link_to project.status, "https://learn.co/portfolio-projects/#{project.id}", target: 'blank' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

@@ -1,5 +1,7 @@
 class Batch < ApplicationRecord
   has_many :batch_progress_reports
+  has_many :students, foreign_key: 'active_batch_id'
+  has_many :projects, -> { Project.includes(:students).where(students: {batch: self}) }
 
   def refresh_report 
     last_report_date = batch_progress_reports.last.try(:created_at)

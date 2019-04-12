@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
   
+  resources :projects
   devise_for :users
-  resources :students
+  resources :students do 
+    resources :projects, only: [:index]
+  end
   resources :batch_progress_report_rows
   resources :batches do 
     resources :batch_progress_reports, as: :progress_reports
+    resources :projects, only: [:index]
   end
 
   post 'students/:id/add', controller: :students, action: :add, as: :add_student

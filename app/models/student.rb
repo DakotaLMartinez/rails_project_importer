@@ -2,6 +2,8 @@ class Student < ApplicationRecord
   has_many :user_students 
   has_many :users, through: :user_students
   has_many :batch_progress_report_rows
+  has_many :projects
+  belongs_to :batch, foreign_key: 'active_batch_id', primary_key: 'batch_id'
 
   def added?(user)
     !user_students.find_by(user_id: user.id).nil?

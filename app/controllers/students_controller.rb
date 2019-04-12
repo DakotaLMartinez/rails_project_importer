@@ -16,4 +16,8 @@ class StudentsController < ApplicationController
     current_user.students.delete(@student) 
     redirect_to request.referrer
   end
+  
+  def show 
+    @student = Student.find_by(id: params[:id])
+  end
 end
