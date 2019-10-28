@@ -6,6 +6,7 @@ class ProjectsController < ApplicationController
     if @student
       @student.projects
     elsif @batch
+      @batch.fetch_projects
       @projects = Project.includes(:student).where(students: {batch: @batch})
     else 
       @projects = Project.all
