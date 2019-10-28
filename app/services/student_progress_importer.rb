@@ -2,7 +2,26 @@ require 'open-uri'
 require 'capybara_scraper'
 require 'typhoeus'
 
-options = {js_errors: false}
+require "selenium/webdriver"
+
+Capybara.register_driver :chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+
+Capybara.register_driver :headless_chrome do |app|
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+    chromeOptions: { args: %w(headless disable-gpu) }
+  )
+
+  Capybara::Selenium::Driver.new app,
+    browser: :chrome,
+    desired_capabilities: capabilities,
+    timeout: 180
+end
+
+Capybara.javascript_driver = :headless_chrome
+
+options = {js_errors: false, timeout: 60}
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, options)
 end
@@ -31,8 +50,8 @@ class StudentProgressImporter
   end
 
   def login_user(email, password)
-    @session = Capybara::Session.new(:poltergeist)
-
+    @session = Capybara::Session.new(:headless_chrome)
+    
     @session.visit('https://learn.co')
     @session.fill_in "user-email", with: email
     @session.fill_in "user-password", with: password
