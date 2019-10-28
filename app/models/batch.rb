@@ -1,7 +1,7 @@
 class Batch < ApplicationRecord
   has_many :batch_progress_reports
   has_many :students, foreign_key: 'active_batch_id'
-  has_many :projects, -> { Project.includes(:students).where(students: {batch: self}) }
+  has_many :projects, through: :students
 
   def refresh_report 
     last_report_date = batch_progress_reports.last.try(:created_at)
@@ -14,5 +14,12 @@ class Batch < ApplicationRecord
   def last_report_with_content 
     my_reports = batch_progress_report_ids
     last_report_with_rows = BatchProgressReportRow.where(batch_progress_report_id: my_reports).order(:created_at).last.try(:batch_progress_report)
+  end
+
+  def fetch_projects 
+    data = ProjectImporter.new(self).fetch
+    data.each do |project_hash|
+      Project.create(project_hash) unless Project.find_by(id: project_hash["id"])
+    end
   end
 end

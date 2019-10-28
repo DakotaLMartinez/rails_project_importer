@@ -14,14 +14,6 @@ class Project < ApplicationRecord
     "React" => "React Redux Portfolio Project"
   }
 
-  def self.fetch_for_batch(batch)
-    data = ProjectImporter.new(batch).fetch
-    data.each do |project_hash|
-      p = Project.create(project_hash)
-      puts p.valid?
-    end
-  end
-  
   def student_email=(student_email)
     self.student = Student.find_by(email: student_email)
   end
