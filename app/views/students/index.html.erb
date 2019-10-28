@@ -9,7 +9,7 @@
 <% @students.each do |student| %> 
   <% row = student.last_progress %>
   <div>
-    <span class="fl w-20"><%= row.full_name %></span>
+    <span class="fl w-20"><%= link_to row.full_name, student_path(row.student) %></span>
     <span class="fl w-20"><%= row.completed_lessons_count %></span>
     <span class="fl w-20"><%= row.total_lessons_count %></span>
     <span class="fl w-20"><%= row.email %></span>
