@@ -3,10 +3,10 @@ class BatchProgressReportRow < ApplicationRecord
   belongs_to :student
 
   def full_name 
-    student.full_name
+    student.try(:full_name) || 'N/A'
   end
 
   def email 
-    student.email
+    student.try(:email) || 'N/A'
   end
 end
