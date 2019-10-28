@@ -6,7 +6,7 @@ class Student < ApplicationRecord
   belongs_to :batch, foreign_key: 'active_batch_id', primary_key: 'batch_id'
 
   def added?(user)
-    !user_students.find_by(user_id: user.id).nil?
+    !user_students.find_by(user_id: user.try(:id)).nil?
   end
 
   def last_progress
