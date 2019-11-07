@@ -19,7 +19,9 @@ class Batch < ApplicationRecord
   def fetch_projects 
     data = ProjectImporter.new(self).fetch
     data.each do |project_hash|
-      Project.create(project_hash) unless Project.find_by(id: project_hash["id"])
+      project = Project.find_by(id: project_hash["id"]) || Project.create(project_hash)
+      project.update(status: project_hash["status"]) unless project.status == project_hash["status"]
+      project.student_info = project_hash["student_info"] unless project.student
     end
   end
 end

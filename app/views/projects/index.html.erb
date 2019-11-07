@@ -1,1 +1,15 @@
+<%= link_to "All Projects", projects_path %> |
+<%= link_to "CLI", projects_path({type: "CLI"}) %> |
+<%= link_to "Sinatra", projects_path({type: "Sinatra"}) %> |
+<%= link_to "Rails", projects_path({type: "Rails"}) %> |
+<%= link_to "Rails/JS", projects_path({type: "Rails/JS"}) %> |
+<%= link_to "React", projects_path({type: "React"}) %> |
+<p>
+  <form method="get" action="/projects">
+    <select name="batch_filter_id">
+      <%= options_for_select(Batch.pluck(:name, :batch_id).select{|a| a[0]}) %>
+    </select>
+    <input type="submit" value="Filter by Batch">
+  </form>
+</p>
 <%= render partial: 'projects', locals: { projects: @projects } %>

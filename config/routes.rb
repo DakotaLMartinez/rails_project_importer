@@ -8,8 +8,9 @@ Rails.application.routes.draw do
   resources :batch_progress_report_rows
   resources :batches do 
     resources :batch_progress_reports, as: :progress_reports
-    resources :projects, only: [:index]
+    resources :projects, only: [:index], param: :id
   end
+  resources :projects, only: [:index]
 
   post 'students/:id/add', controller: :students, action: :add, as: :add_student
   post 'students/:id/remove', controller: :students, action: :remove, as: :remove_student

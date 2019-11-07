@@ -17,9 +17,9 @@
   <tbody>
     <% projects.each do |project| %>
       <tr>
-        <td><%= link_to project.student_name, student_path(project.student) %></td>
+        <td><%= student_link(project.student) %></td>
         <td><%= project.short_type %></td>
-        <td><%= link_to "#{project.github_url.split('/').last}", project.github_url, target: 'blank' %></td>
+        <td><%= github_link(project) %></td>
         <td><%= link_to "Blog", project.blog_url, target: 'blank' %></td>
         <td><%= link_to 'Video', project.video_url, target: 'blank' %></td>
         <td><%= link_to project.status, "https://learn.co/portfolio-projects/#{project.id}", target: 'blank' %></td>

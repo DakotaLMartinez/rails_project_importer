@@ -19,5 +19,6 @@ class StudentsController < ApplicationController
   
   def show 
     @student = Student.find_by(id: params[:id])
+    @last_progress_report_row = @student.batch_progress_report_rows.last
   end
 end

@@ -12,4 +12,8 @@ class Student < ApplicationRecord
   def last_progress
     batch_progress_report_rows.last || Struct.new(:full_name, :completed_lesson_count, :total_lessons_count, :email, :student).new
   end
+  
+  def batch_id=(batch_id)
+    self.batch = Batch.find_or_create_by(batch_id: batch_id)
+  end
 end

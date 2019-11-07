@@ -9,22 +9,16 @@
   <strong>Date:</strong>
   <%= @batch_progress_report.created_at.strftime("%m/%d/%Y") %>
 </p>
+<table>
 
-<div>
-  <span class="fl w-20">Full Name</span>
-  <span class="fl w-20">Completed Lesson Count</span>
-  <span class="fl w-20">Total Lessons Count</span>
-  <span class="fl w-20">Email</span>
-  <span class="fl w-20">Add/Remove</span>
-</div>
-<% @batch_progress_report.batch_progress_report_rows.each do |row| %> 
-  <div>
-    <span class="fl w-20"><%= row.full_name %></span>
-    <span class="fl w-20"><%= row.completed_lessons_count %></span>
-    <span class="fl w-20"><%= row.total_lessons_count %></span>
-    <span class="fl w-20"><%= row.email %></span>
-    <span class="fl w-20"><%= add_button(row.student) %></span>
-  </div>
-<% end %>
+  <thead>
+  <%= render partial: 'batch_progress_report_rows/headers' %>
+  </thead>
+  <tbody>
+    <% @batch_progress_report.batch_progress_report_rows.each do |row| %> 
+      <%= render partial: 'batch_progress_report_rows/row', locals: {row: row} %>
+    <% end %>
+  </tbody>
+</table>
 
 

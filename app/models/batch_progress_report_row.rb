@@ -9,4 +9,8 @@ class BatchProgressReportRow < ApplicationRecord
   def email 
     student.try(:email) || 'N/A'
   end
+
+  def github_username
+    student.try(:github_username) || 'N/A'
+  end
 end

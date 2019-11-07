@@ -1,0 +1,7 @@
+<tr>
+  <td><%= row.student ? link_to(row.full_name, student_path(row.student)) : 'N/A' %></td>
+  <td><%= row.completed_lessons_count %></td>
+  <td><%= row.total_lessons_count %></td>
+  <td><%= row.email %></td>
+  <td><%= add_button(row.student) %></td>
+</tr>

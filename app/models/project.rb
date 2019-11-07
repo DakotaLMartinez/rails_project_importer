@@ -14,12 +14,23 @@ class Project < ApplicationRecord
     "React" => "React Redux Portfolio Project"
   }
 
-  def student_email=(student_email)
-    self.student = Student.find_by(email: student_email)
+  def self.import_all 
+    data = ProjectImporter.new.fetch
+    data.each do |project_hash|
+      project = Project.find_by(id: project_hash["id"]) || Project.create(project_hash)
+      project.update(status: project_hash["status"]) unless project.status == project_hash["status"]
+      project.student_info = project_hash["student_info"] unless project.student
+    end
+  end
+
+  def student_info=(student_info)
+    Batch.find_or_create_by(batch_id: student_info["active_batch_id"])
+    self.student = Student.find_or_create_by(student_info)
+    self.save
   end
 
   def student_name 
-    student.full_name
+    student.try(:full_name)
   end
 
   def short_type 

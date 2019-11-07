@@ -1,18 +1,28 @@
 <h1>My Student's Progress</h1>
-<div>
-  <span class="fl w-20">Full Name</span>
-  <span class="fl w-20">Completed Lesson Count</span>
-  <span class="fl w-20">Total Lessons Count</span>
-  <span class="fl w-20">Email</span>
-  <span class="fl w-20">Add/Remove</span>
-</div>
+<table>
+  <thead>
+    <tr>
+      <th>Full Name</th>
+      <th>Lessons Completed</th>
+      <th>Lessons Deployed</th>
+      <th>Email</th>
+      <th>Projects Dashboard</th>
+      <th>Graduation Dashboard</th>
+      <th>Add/Remove</th>
+    </tr>
+  </thead>
+  <tbody>
 <% @students.each do |student| %> 
   <% row = student.last_progress %>
-  <div>
-    <span class="fl w-20"><%= link_to row.full_name, student_path(row.student) %></span>
-    <span class="fl w-20"><%= row.completed_lessons_count %></span>
-    <span class="fl w-20"><%= row.total_lessons_count %></span>
-    <span class="fl w-20"><%= row.email %></span>
-    <span class="fl w-20"><%= row.student && add_button(row.student) %></span>
-  </div>
+  <tr>
+    <td><%= link_to row.full_name, student_path(row.student) %></td>
+    <td><%= row.completed_lessons_count %></td>
+    <td><%= row.total_lessons_count %></td>
+    <td><%= row.email %></td>
+    <td><%= link_to "Projects", "https://learn.co/portfolio-projects/student-dashboard/#{row.github_username}" %></td>
+    <td><%= link_to "Graduate", "https://learn.co/graduation/student-dashboard/#{row.github_username}" %></td>
+    <td><%= row.student && add_button(row.student) %></td>
+  </tr>
 <% end %>
+</tbody>
+</table>
