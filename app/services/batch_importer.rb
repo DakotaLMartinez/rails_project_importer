@@ -31,9 +31,9 @@ class BatchImporter
     web_batches.each do |web_batch| 
       batch = Batch.find_by_batch_id(web_batch["batch_id"])
       if batch
-        batch.update(name: web_batch["iteration"])
+        batch.update(name: web_batch["iteration"], iteration: web_batch["iteration"])
       else 
-        Batch.create(name: web_batch["iteration"], batch_id: web_batch["batch_id"])
+        Batch.create(name: web_batch["iteration"], iteration: web_batch["iteration"], batch_id: web_batch["batch_id"])
       end
     end
   end
