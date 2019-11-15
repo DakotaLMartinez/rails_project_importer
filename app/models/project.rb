@@ -19,6 +19,7 @@ class Project < ApplicationRecord
     data.each do |project_hash|
       project = Project.find_by(id: project_hash["id"]) || Project.create(project_hash)
       project.update(status: project_hash["status"]) unless project.status == project_hash["status"]
+      project.update(status: project_hash["portfolio_project_id"]) unless project.portfolio_project_id == project_hash["portfolio_project_id"]
       project.student_info = project_hash["student_info"] unless project.student
     end
   end

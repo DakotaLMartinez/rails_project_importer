@@ -53,7 +53,8 @@ class ProjectImporter
           "full_name" => hash["student"]["full_name"],
           "github_username" => hash["student"]["github_username"]
         },
-        "project_type" => hash["lesson"]["title"]
+        "project_type" => hash["lesson"]["title"],
+        "portfolio_project_id" => hash["id"]
       })
     end
   end

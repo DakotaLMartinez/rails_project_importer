@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_07_213315) do
+ActiveRecord::Schema.define(version: 2019_11_15_175236) do
 
   create_table "batch_progress_report_rows", force: :cascade do |t|
     t.integer "batch_progress_report_id"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 2019_11_07_213315) do
     t.integer "student_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "portfolio_project_id"
     t.index ["student_id"], name: "index_projects_on_student_id"
   end
 

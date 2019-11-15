@@ -6,4 +6,5 @@ class User < ApplicationRecord
 
   has_many :user_students
   has_many :students, through: :user_students
+  has_many :project_reviews
 end

@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Project Reviews</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @project_reviews.each do |project_review| %>
+      <tr>
+        <td><%= link_to 'Show', project_review %></td>
+        <td><%= link_to 'Edit', edit_project_review_path(project_review) %></td>
+        <td><%= link_to 'Destroy', project_review, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Project Review', new_project_review_path %>

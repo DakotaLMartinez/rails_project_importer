@@ -3,6 +3,7 @@ class Student < ApplicationRecord
   has_many :users, through: :user_students
   has_many :batch_progress_report_rows
   has_many :projects
+  has_many :project_reviews
   belongs_to :batch, foreign_key: 'active_batch_id', primary_key: 'batch_id'
 
   def added?(user)
