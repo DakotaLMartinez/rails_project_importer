@@ -1,7 +1,17 @@
 <tr>
+  <% project_1 = row.student.projects.cli.first %>
+  <% project_2 = row.student.projects.sinatra.first %>
+  <% project_3 = row.student.projects.rails.first %>
+  <% project_4 = row.student.projects.javascript.first %>
+  <% project_5 = row.student.projects.final.first %>
   <td><%= row.student ? link_to(row.full_name, student_path(row.student)) : 'N/A' %></td>
   <td><%= row.completed_lessons_count %></td>
   <td><%= row.total_lessons_count %></td>
   <td><%= row.email %></td>
+  <td><%= project_1 && link_to(project_1.status, "https://learn.co/portfolio-projects/#{project_1.id}", target: 'blank') %></td>
+  <td><%= project_2 && link_to(project_2.status, "https://learn.co/portfolio-projects/#{project_2.id}", target: 'blank') %></td>
+  <td><%= project_3 && link_to(project_3.status, "https://learn.co/portfolio-projects/#{project_3.id}", target: 'blank') %></td>
+  <td><%= project_4 && link_to(project_4.status, "https://learn.co/portfolio-projects/#{project_4.id}", target: 'blank') %></td>
+  <td><%= project_5 && link_to(project_5.status, "https://learn.co/portfolio-projects/#{project_5.id}", target: 'blank') %></td>
   <td><%= add_button(row.student) %></td>
 </tr>

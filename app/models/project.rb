@@ -14,6 +14,12 @@ class Project < ApplicationRecord
     "React" => "React Redux Portfolio Project"
   }
 
+  scope :cli, -> { where(project_type: ["CLI Data Gem Portfolio Project", "CLI Data Gem Project"]) }
+  scope :sinatra, -> { where(project_type: ["Sinatra Portfolio Project"]) }
+  scope :rails, -> { where(project_type: ["Rails Portfolio Project"]) }
+  scope :javascript, -> { where(project_type: ["JavaScript Project Instructions", "JavaScript and Rails Project Instructions", "Rails with JavaScript Portfolio Project", "Rails App with a jQuery Front End"]) }
+  scope :final, -> { where(project_type: ["Final Project Requirements","React Redux Portfolio Project", "Rails Angular Portfolio Project"] )}
+
   def self.import_all 
     data = ProjectImporter.new.fetch
     data.each do |project_hash|
@@ -26,7 +32,8 @@ class Project < ApplicationRecord
 
   def student_info=(student_info)
     Batch.find_or_create_by(batch_id: student_info["active_batch_id"])
-    self.student = Student.find_or_create_by(student_info)
+    self.student = Student.find_or_create_by(email: student_info["email"])
+    self.student.update(student_info) unless student_info.all?{|k,v| self.student.send(k) == v}
     self.save
   end
 

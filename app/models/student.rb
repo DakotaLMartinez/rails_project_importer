@@ -2,9 +2,13 @@ class Student < ApplicationRecord
   has_many :user_students 
   has_many :users, through: :user_students
   has_many :batch_progress_report_rows
-  has_many :projects
+  # has_many :projects
   has_many :project_reviews
   belongs_to :batch, foreign_key: 'active_batch_id', primary_key: 'batch_id'
+
+  def projects 
+    Project.includes(:student).where(students: {email: self.email})
+  end
 
   def added?(user)
     !user_students.find_by(user_id: user.try(:id)).nil?

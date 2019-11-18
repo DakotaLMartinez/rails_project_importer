@@ -1,6 +1,6 @@
 class Batch < ApplicationRecord
   has_many :batch_progress_reports
-  has_many :students, foreign_key: 'active_batch_id'
+  has_many :students, foreign_key: 'active_batch_id', primary_key: 'batch_id'
   has_many :projects, through: :students
 
   def refresh_report 

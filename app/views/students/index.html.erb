@@ -8,12 +8,22 @@
       <th>Email</th>
       <th>Projects Dashboard</th>
       <th>Graduation Dashboard</th>
+      <th>Project 1</th>
+      <th>Project 2</th>
+      <th>Project 3</th>
+      <th>Project 4</th>
+      <th>Project 5</th>
       <th>Add/Remove</th>
     </tr>
   </thead>
   <tbody>
 <% @students.each do |student| %> 
   <% row = student.last_progress %>
+  <% project_1 = student.projects.cli.first %>
+  <% project_2 = student.projects.sinatra.first %>
+  <% project_3 = student.projects.rails.first %>
+  <% project_4 = student.projects.javascript.first %>
+  <% project_5 = student.projects.final.first %>
   <tr>
     <td><%= link_to row.full_name, student_path(row.student) %></td>
     <td><%= row.completed_lessons_count %></td>
@@ -21,6 +31,11 @@
     <td><%= row.email %></td>
     <td><%= link_to "Projects", "https://learn.co/portfolio-projects/student-dashboard/#{row.github_username}" %></td>
     <td><%= link_to "Graduate", "https://learn.co/graduation/student-dashboard/#{row.github_username}" %></td>
+    <td><%= project_1 && link_to(project_1.status, "https://learn.co/portfolio-projects/#{project_1.id}", target: 'blank') %></td>
+    <td><%= project_2 && link_to(project_2.status, "https://learn.co/portfolio-projects/#{project_2.id}", target: 'blank') %></td>
+    <td><%= project_3 && link_to(project_3.status, "https://learn.co/portfolio-projects/#{project_3.id}", target: 'blank') %></td>
+    <td><%= project_4 && link_to(project_4.status, "https://learn.co/portfolio-projects/#{project_4.id}", target: 'blank') %></td>
+    <td><%= project_5 && link_to(project_5.status, "https://learn.co/portfolio-projects/#{project_5.id}", target: 'blank') %></td>
     <td><%= row.student && add_button(row.student) %></td>
   </tr>
 <% end %>
