@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
   resources :project_reviews
+  get '/project_reviews/:id/update_status', to: 'project_reviews#update_status', as: :project_review_update_status
   resources :projects
   devise_for :users
   resources :students do 

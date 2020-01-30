@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_15_175236) do
+ActiveRecord::Schema.define(version: 2020_01_29_225838) do
 
   create_table "batch_progress_report_rows", force: :cascade do |t|
     t.integer "batch_progress_report_id"
@@ -63,6 +63,18 @@ ActiveRecord::Schema.define(version: 2019_11_15_175236) do
     t.datetime "updated_at", null: false
     t.string "status"
     t.string "start_time"
+    t.string "name"
+    t.string "email"
+    t.string "date"
+    t.string "github_url"
+    t.string "cohort_name"
+    t.string "learn_profile_url"
+    t.string "assessment"
+    t.text "notes"
+    t.text "email_to_student"
+    t.boolean "pass"
+    t.integer "grade"
+    t.boolean "action_required", default: true
     t.index ["project_id"], name: "index_project_reviews_on_project_id"
     t.index ["student_id"], name: "index_project_reviews_on_student_id"
     t.index ["user_id"], name: "index_project_reviews_on_user_id"

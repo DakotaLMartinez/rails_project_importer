@@ -31,23 +31,14 @@ class ProjectReviewImporter
   end
 
   def self.fetch 
-    session.find('.oui-dialog-header-close').click
+    close_button = session.find_all('.oui-dialog-header-close')
+    close_button[0] && close_button[0].click
     session.visit("https://app.oncehub.com/scheduleonce/Activity.aspx?free_text_search=structured%20portfolio%20project%20review")
     results = {}
-    previous_lengths = [-1,0]
-    # grab data for 5 meetings at a time
-    until previous_lengths[-3] == previous_lengths[-2] && previous_lengths[-2] == previous_lengths[-1]
-      data = session.find_all('li .userDetail').map do |ud|
-        name, email, status, type, date = ud.text.split("\n")
-        {
-          name: name, 
-          email: email,
-          status: status, 
-          type: type,
-          date: date
-        }
-      end[0..4]
-      # sleep 1
+    cohorts_missing = 0
+    until cohorts_missing > 0
+      data = []
+      sleep 1
       # click on all of the meetings on the left hand side and 
       # add data from right hand side details view
       selected_meeting_index = 0
@@ -61,20 +52,40 @@ class ProjectReviewImporter
           c.style.top = offset+'px';
         JS
         session.execute_script(js)
+        current_node = session.find_all('.activityStreamListing li')[selected_meeting_index]
+
+        name, email, status, type, date = current_node.text.split("\n")
+        detail_node = session.find('.activityDetail')
+        text = ""
+        counter = 0
+        until text || counter == 100
+          text = detail_node.text.match(/(https:\/\/github.com\/.+)/).try(:[],0)
+          counter += 1
+        end
+        text = detail_node.text
+
+        hash = {
+          name: name,
+          email: email,
+          status: status, 
+          type: type, 
+          date: date,
+          github_url: text.match(/(https:\/\/github.com\/.+)/).try(:[],0),
+          cohort_name: text.match(/(online-web-[pf]t-\d+)/).try(:[],1),
+          learn_profile_url: text.match(/(https:\/\/w*\.?learn.co\/.+)\s/).try(:[],1),
+          assessment: session.find_all('.activityDetail p').last.text
+        }
+        data[selected_meeting_index] = hash
         
-        # add the data to the corresponding hash
-        text = session.find('.activityDetail').text
-        data[selected_meeting_index][:github_url] = text.match(/(https:\/\/github.com\/.+)/).try(:[],0)
-        data[selected_meeting_index][:cohort_name] = text.match(/(online-web-[pf]t-\d+)/).try(:[],1)
-        data[selected_meeting_index][:learn_profile_url] = text.match(/(https:\/\/w*\.?learn.co\/.+)\s/).try(:[],1)
-        data[selected_meeting_index][:assessment] = session.find_all('.activityDetail p').last.text
+        break if ProjectReview.find_by(name: hash[:name], email: hash[:email], date: hash[:date], github_url: hash[:github_url], cohort_name: hash[:cohort_name], learn_profile_url: hash[:learn_profile_url], assessment: hash[:assessment])
         selected_meeting_index += 1
         session.find_all('.activityStreamListing li')[selected_meeting_index].click
       end
       # load the data into the results hash
-      data.each {|d| results["#{d[:name]} at #{d[:date]}"] = d}
-      # add the length of the results to the previous lengths array for terminating the while loop
-      previous_lengths << results.length
+      data.each {|d| results["#{d[:name]} at #{d[:date]}"] = d if (d[:name] && d[:date]) }
+      puts "nil cohorts: #{data.select{|h| h[:cohort_name] == nil}.count}"
+      cohorts_missing = data.select{|h| h[:cohort_name] == nil}.count
+      
       session.scroll_to(session.find_all('.activityStreamListing li').last)
     end
     # filter out the canceled meetings

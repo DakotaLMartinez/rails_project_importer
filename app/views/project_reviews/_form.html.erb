@@ -1,3 +1,5 @@
+<%= project_review.inspect %>
+<%= link_to project_review.cohort_name, batch_path(Batch.find_by_iteration(project_review.cohort_name)) %>
 <%= form_with(model: project_review, local: true) do |form| %>
   <% if project_review.errors.any? %>
     <div id="error_explanation">
@@ -10,6 +12,64 @@
       </ul>
     </div>
   <% end %>
+
+  <% if (student = project_review.student) && student.projects.length > 0 %>
+  <div class="field">
+    <%= form.label :project %>
+    <%= form.collection_select :project_id, student.projects, :id, :label %>
+  </div>
+  <% else %>
+  <div class="field">
+    <%= form.label :project %>
+    <% projects_ordered = Project.includes(:student).order(:full_name,:email).where("student_id != ?", "null").pluck(:full_name,:project_type,:id,:email).map{|a| a[0] += " - #{a[3]} - #{a[1]}"; a[1] = a[2]; a[0..1] } %>
+    <select name="project_review[project_id]">
+
+      <%= options_for_select(projects_ordered,project_review.project_id) %>
+    </select>
+  </div>
+  <% end %>
+
+  <% batch = Batch.find_by_iteration(project_review.cohort_name) %>
+  <div class="field">
+    <%= form.label :student %>
+    <% students_ordered = Student.includes(:batch).order(:full_name).pluck(:full_name,:iteration,:id,:email).map{|a| (a[0] ||= a[3]); a[0] += " - #{a[1]}"; a[1] = a[2]; a[0..1] }%>
+    <select name="project_review[student_id]">
+
+      <%= options_for_select(students_ordered, project_review.student_id) %>
+    </select>
+  </div>
+
+  <div class="field">
+    <%= form.label :assessment %>
+    <select name="project_review[assessment]">
+      <%= options_for_select(Project::TYPES.keys.first(5), project_review.assessment) %>
+    </select>
+  </div>
+
+  <div class="field">
+    <%= form.label :notes %>
+    <%= form.text_area :notes %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email_to_student %>
+    <%= form.text_area :email_to_student %>
+  </div>
+
+  <div class="field">
+    <%= form.label :pass %>
+    <%= form.check_box :pass %>
+  </div>
+
+  <div class="field">
+    <%= form.label :grade %>
+    <%= form.number_field :grade %>
+  </div>
+
+  <div class="field">
+    <%= form.label :action_required %>
+    <%= form.check_box :action_required %>
+  </div>
 
   <div class="actions">
     <%= form.submit %>

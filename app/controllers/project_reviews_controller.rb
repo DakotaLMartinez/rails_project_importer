@@ -1,6 +1,6 @@
 class ProjectReviewsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_project_review, only: [:show, :edit, :update, :destroy]
+  before_action :set_project_review, only: [:show, :edit, :update, :update_status, :destroy]
 
   # GET /project_reviews
   # GET /project_reviews.json
@@ -43,13 +43,18 @@ class ProjectReviewsController < ApplicationController
   def update
     respond_to do |format|
       if @project_review.update(project_review_params)
-        format.html { redirect_to @project_review, notice: 'Project review was successfully updated.' }
+        format.html { redirect_to "/project_reviews", notice: 'Project review was successfully updated.' }
         format.json { render :show, status: :ok, location: @project_review }
       else
         format.html { render :edit }
         format.json { render json: @project_review.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def update_status 
+    ProjectImporter.update_status(@project_review.project)
+    redirect_to project_reviews_path
   end
 
   # DELETE /project_reviews/1
@@ -70,6 +75,6 @@ class ProjectReviewsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_review_params
-      params.fetch(:project_review, {})
+      params.fetch(:project_review).permit(:project_id, :student_id, :notes, :pass, :email_to_student, :action_required)
     end
 end

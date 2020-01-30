@@ -20,6 +20,14 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def update
+    @project = Project.find_by_id(params[:id])
+    if @project
+      ProjectImporter.update_status(@project)
+    end 
+    redirect_to request.referrer
+  end
+
   private 
 
   def set_student 

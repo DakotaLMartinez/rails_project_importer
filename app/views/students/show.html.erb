@@ -1,5 +1,4 @@
 <h1><%= @student.full_name %></h1>
-
-<%= render partial: 'batch_progress_report_rows/headers' %>
-<%= render partial: 'batch_progress_report_rows/row', locals: {row: @last_progress_report_row } if @last_progress_report_row %>
+<p><%= link_to @student.batch.try(:name), batch_path(@student.batch) %></p>
+<%= @student.inspect %>
 <%= render partial: 'projects/projects', locals: { projects: @student.projects } %>

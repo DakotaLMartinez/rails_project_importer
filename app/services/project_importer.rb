@@ -12,6 +12,15 @@ class ProjectImporter
     "created_at"
   ]
 
+  def self.update_status(project)
+    json = JSON.parse(Typhoeus.get("#{BASE_URL}/#{project.id}").try(:response_body))
+    project.update(status: json["status"])
+  end
+
+  def self.filter_show_params(hashed_json)
+    binding.pry
+  end
+
   attr_reader :batch
   def initialize(batch=nil)
     @batch = batch
@@ -31,20 +40,20 @@ class ProjectImporter
 
   def fetch_unscheduled
     json = JSON.parse(Typhoeus.get("#{BASE_URL}/unscheduled#{query_params}").try(:response_body))
-    filter_params(json)
+    filter_index_params(json)
   end
 
   def fetch_pending
     json = JSON.parse(Typhoeus.get("#{BASE_URL}/pending_feedback#{query_params}").try(:response_body))
-    filter_params(json)
+    filter_index_params(json)
   end
 
   def fetch_completed
     json = JSON.parse(Typhoeus.get("#{BASE_URL}/complete#{query_params}").try(:response_body))
-    filter_params(json)
+    filter_index_params(json)
   end
 
-  def filter_params(hashed_json)
+  def filter_index_params(hashed_json)
     hashed_json.map do |hash|
       hash.select{|k,v| WANTED_KEYS.include?(k)}.merge({
         "student_info" => {
