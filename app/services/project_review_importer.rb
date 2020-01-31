@@ -99,6 +99,7 @@ class ProjectReviewImporter
     @@session = Capybara::Session.new(:headless_chrome)
     
     @@session.visit('https://account.oncehub.com/signin')
+    sleep 2
     @@session.fill_in "email", with: email
     @@session.fill_in "password", with: password
     puts "Signing in now..."
